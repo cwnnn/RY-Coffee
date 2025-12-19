@@ -15,8 +15,9 @@ function setLang(lang: 'tr' | 'en') {
     <button @click="setLang('en')">EN</button>
   </header>
 
-  <h1>{{ t('header.home') }}</h1>
-  <p>{{ t('home.subtitle') }}</p>
+  <h1 class="">{{ t('header.home') }}</h1>
+  <h2>{{ t('hero.subtitle') }}</h2>
+  <p>{{ t('hero.description') }}</p>
 
   <button>{{ t('common.call') }}</button>
 
