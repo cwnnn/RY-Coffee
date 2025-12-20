@@ -1,38 +1,42 @@
 @import './base.css';
-
+@import 'tailwindcss';
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+  min-height: 100vh;
+
   color: var(--text-primary);
 }
-
-/* Linkler */
-a {
-  text-decoration: none;
-  color: var(--accent-primary);
-  transition: 0.3s ease;
-  padding: 3px;
-  border-radius: 6px;
+html {
+  scroll-behavior: smooth;
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: rgba(200, 155, 109, 0.2);
-  }
+body {
+  min-height: 100vh;
+  margin: 0;
+
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.7;
+
+  color: var(--text-primary);
+  background-color: var(--bg-page);
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-    background-color: var(--bg-page);
-  }
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+.container {
+  @apply w-full max-w-[80%] lg:max-w-[60%] mx-auto;
+}
+
+.font-Header {
+  font-family: var(--font-heading);
 }
