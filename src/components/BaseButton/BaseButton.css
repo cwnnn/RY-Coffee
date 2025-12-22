@@ -1,0 +1,85 @@
+@reference "tailwindcss/theme.css";
+
+.btn {
+  @apply inline-flex items-center justify-center gap-2
+    rounded-full font-semibold select-none
+    transition-all duration-200;
+}
+
+.btn:not(.is-disabled) {
+  @apply cursor-pointer;
+}
+
+/* SIZES */
+.btn--sm {
+  @apply px-3 py-1.5 text-sm;
+}
+.btn--md {
+  @apply px-5 py-2.5 text-sm;
+}
+.btn--lg {
+  @apply px-7 py-3 text-base;
+}
+
+/* COLORS (SEMANTIC) */
+.btn--primary {
+  @apply bg-(--coffee-caramel) text-white hover:bg-(--coffee-mocha);
+}
+
+.btn--secondary {
+  @apply bg-(--coffee-espresso) text-white hover:bg-(--coffee-mocha);
+}
+
+.btn--tertiary {
+  @apply bg-white text-(--coffee-caramel) hover:bg-(--coffee-caramel) hover:text-white;
+}
+
+.btn--quaternary {
+  @apply bg-white text-(--coffee-espresso) hover:bg-(--coffee-espresso-soft) hover:text-white;
+}
+
+.btn--danger {
+  @apply bg-red-600 text-white hover:bg-red-700;
+}
+
+/* VARIANTS */
+.btn--outline {
+  @apply bg-transparent border hover:border-white;
+}
+
+.btn--outline.btn--primary {
+  @apply text-(--coffee-caramel) border-(--coffee-caramel);
+}
+
+.btn--outline.btn--secondary {
+  @apply text-(--coffee-espresso) border-(--coffee-espresso);
+}
+
+.btn--outline.btn--danger {
+  @apply text-red-600 border-red-600  hover:border-white;
+}
+
+/* GHOST */
+.btn--ghost {
+  @apply bg-transparent;
+}
+
+.btn--ghost.btn--primary {
+  @apply text-black;
+}
+.btn--ghost.btn--secondary {
+  @apply text-white;
+}
+
+.btn--ghost.btn--danger {
+  @apply text-red-600 hover:text-white;
+}
+
+/* DISABLED / LOADING */
+.is-disabled {
+  @apply opacity-50 cursor-not-allowed pointer-events-none;
+}
+
+.btn__spinner {
+  @apply inline-block h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white;
+}
