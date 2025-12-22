@@ -1,10 +1,26 @@
 export const messages = {
   tr: {
+    common: {
+      brand: {
+        name: 'RY Coffee',
+        slogan: 'Kahvenin en sade ve özenli hali.',
+      },
+    },
     header: {
-      home: 'Ana Sayfa',
       menu: 'Menü',
-      gallery: 'Galeri',
+      ourStory: 'Hikayemiz',
+      locations: 'Konumlar',
       contact: 'İletişim',
+    },
+    footer: {
+      nav: {
+        home: 'Ana Sayfa',
+        about: 'Hakkımızda',
+      },
+      contact: {
+        address: 'Kadıköy / İstanbul',
+        phone: '0555 555 55 55',
+      },
     },
     hero: {
       title: 'Gerçek Kahve Deneyimi',
@@ -18,11 +34,27 @@ export const messages = {
   },
 
   en: {
+    common: {
+      brand: {
+        name: 'RY Coffee House',
+        slogan: 'Coffee, crafted with care.',
+      },
+    },
     header: {
-      home: 'Home',
       menu: 'Menu',
-      gallery: 'Gallery',
+      ourStory: 'Our Story',
+      locations: 'Locations',
       contact: 'Contact',
+    },
+    footer: {
+      nav: {
+        home: 'Home',
+        about: 'About Us',
+      },
+      contact: {
+        address: 'Kadikoy / Istanbul',
+        phone: '+90 555 555 55 55',
+      },
     },
     hero: {
       title: 'Real Coffee Experience',
