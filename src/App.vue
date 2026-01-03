@@ -13,30 +13,30 @@ const { locale } = useI18n()
 <template>
   <AppHeader>
     <template #logo>
-      <a href="#hero" class="flex items-center gap-3">
-        <img src="/logo.png" alt="RY Coffee Logo" class="w-13" />
-        <h1 class="text-3xl font-extrabold text-(--text-header)">{{ t('common.brand.name') }}</h1>
-      </a>
+      <RouterLink to="/#hero" class="app-logo">
+        <img src="/logo.png" alt="RY Coffee Logo" class="app-logo__img" />
+        <h1 class="app-logo__text">
+          {{ t('common.brand.name') }}
+        </h1>
+      </RouterLink>
     </template>
+
     <template #nav>
-      <a
-        class="font-Header px-3 py-2 text-(--text-header) font-Header hover:bg-white/10"
-        href="#menu"
-        >{{ t('header.menu') }}</a
-      >
-      <a class="font-Header px-3 py-2 text-(--text-header) hover:bg-white/10" href="#ourstory">{{
-        t('header.ourStory')
-      }}</a>
-      <a
-        class="font-Header px-3 py-2 text-(--text-header) font-Header hover:bg-white/10"
-        href="#locations"
-        >{{ t('header.locations') }}</a
-      >
-      <a
-        class="font-Header px-3 py-2 text-(--text-header) font-Header hover:bg-white/10"
-        href="#contact"
-        >{{ t('header.contact') }}</a
-      >
+      <RouterLink to="/#menu" class="nav-link font-Header">
+        {{ t('header.menu') }}
+      </RouterLink>
+
+      <RouterLink to="/#ourstory" class="nav-link font-Header">
+        {{ t('header.ourStory') }}
+      </RouterLink>
+
+      <RouterLink to="/#locations" class="nav-link font-Header">
+        {{ t('header.locations') }}
+      </RouterLink>
+
+      <RouterLink to="/#contact" class="nav-link font-Header">
+        {{ t('header.contact') }}
+      </RouterLink>
     </template>
 
     <template #actions>
@@ -45,39 +45,89 @@ const { locale } = useI18n()
   </AppHeader>
 
   <RouterView />
+
   <BaseFooter>
-    <!-- LEFT -->
     <template #left>
-      <div class="flex items-center gap-3 text-white">
-        <img src="/logo2.webp" alt="Brand Logo" class="w-13" />
-        <span class="font-semibold">
+      <div class="footer-brand">
+        <img src="/logo2.webp" alt="Brand Logo" class="footer-brand__img" />
+        <span class="footer-brand__name">
           {{ t('common.brand.name') }}
         </span>
       </div>
 
-      <p class="text-sm leading-relaxed">
+      <p class="footer-slogan">
         {{ t('common.brand.slogan') }}
       </p>
     </template>
 
-    <!-- CENTER -->
     <template #center>
-      <nav class="flex flex-col gap-2">
-        <a href="#hero">
+      <nav class="footer-nav">
+        <a href="#hero" class="footer-nav__link">
           {{ t('footer.nav.home') }}
         </a>
-        <a href="#ourstory">
+        <a href="#ourstory" class="footer-nav__link">
           {{ t('footer.nav.about') }}
         </a>
       </nav>
     </template>
 
-    <!-- RIGHT -->
     <template #right>
-      <div class="text-sm">
+      <div class="footer-contact">
         <p>📍 {{ t('footer.contact.address') }}</p>
         <p>📞 {{ t('footer.contact.phone') }}</p>
       </div>
     </template>
   </BaseFooter>
 </template>
+<style scoped>
+@reference "tailwindcss/theme.css";
+
+/* LOGO */
+.app-logo {
+  @apply flex items-center gap-3;
+}
+
+.app-logo__img {
+  @apply w-13;
+}
+
+.app-logo__text {
+  @apply text-3xl font-extrabold text-(--text-header);
+}
+
+/* NAV LINKS */
+.nav-link {
+  @apply px-3 py-2 text-(--text-header) hover:bg-white/10;
+}
+
+/* FOOTER LEFT */
+.footer-brand {
+  @apply flex items-center gap-3 text-white;
+}
+
+.footer-brand__img {
+  @apply w-13;
+}
+
+.footer-brand__name {
+  @apply font-semibold;
+}
+
+.footer-slogan {
+  @apply text-sm leading-relaxed;
+}
+
+/* FOOTER CENTER */
+.footer-nav {
+  @apply flex flex-col gap-2;
+}
+
+.footer-nav__link {
+  @apply hover:underline;
+}
+
+/* FOOTER RIGHT */
+.footer-contact {
+  @apply text-sm;
+}
+</style>
