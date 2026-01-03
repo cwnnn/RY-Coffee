@@ -1,0 +1,36 @@
+@reference "tailwindcss/theme.css";
+
+/* HEADER */
+.reviews-header {
+  @apply text-center mb-20;
+}
+
+.reviews-title {
+  @apply text-3xl font-semibold;
+}
+
+.reviews-subtitle {
+  @apply mt-2 text-black/60;
+}
+
+.reviews-score {
+  @apply font-semibold;
+}
+
+/* GRID */
+.reviews-grid {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-8;
+}
+
+/* SLIDER */
+.reviews-slider {
+  @apply relative overflow-hidden;
+}
+
+.reviews-track {
+  @apply flex gap-8 transition-transform duration-700;
+}
+
+.reviews-card {
+  @apply shrink-0;
+}
