@@ -1,7 +1,686 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { computed, ref } from 'vue'
+import BaseButton from '@/components/BaseButton/BaseButton.vue'
+import BaseDropdown from '@/components/BaseDropdown/BaseDropdown.vue'
+import IconButton from '@/components/IconButton/IconButton.vue'
+import BaseModal from '@/components/Modal/BaseModal.vue'
+import ReviewCarousel from '@/components/ReviewCarousel/ReviewCarousel.vue'
+import NewsSlider from '@/components/NewsSlider/NewsSlider.vue'
+
+import { menuData } from '@/data/menu'
+import { newsData } from '@/data/news'
+import { locationsData } from '@/data/locations'
+import { reviewsData } from '@/data/reviews'
+
+const expanded = ref(false)
+
+const fadeMask = {
+  maskImage: 'linear-gradient(to bottom, black 70%, transparent)',
+  WebkitMaskImage: 'linear-gradient(to bottom, black 70%, transparent)',
+}
+
+const selectedMapUrl = computed(() => {
+  return (
+    locationsData.find((l) => l.id === selectedLocationId.value)?.mapUrl || locationsData[0]!.mapUrl // default
+  )
+})
+
+const selectedLocationId = ref<number | null>(null)
+
+const renderOrder = [1, 2, 0, 3]
+
+const featuredItems = computed(() => {
+  const items = menuData
+    .flatMap((c) => c.items)
+    .filter((i) => i.featured)
+    .slice(0, 4)
+
+  return renderOrder.map((i) => items[i]).filter(Boolean)
+})
+const campaignOpen = ref(false)
+</script>
 
 <template>
   <main>
-    <h1>Home View</h1>
+    <!--hero section -->
+    <section id="hero" class="hero">
+      <!-- Background Image -->
+      <img src="/src/assets/images/home5.webp" alt="Hero" class="hero-bg" />
+
+      <!-- Content -->
+      <div class="hero-content container">
+        <p class="hero-title">Kahveni Keşfet</p>
+        <p class="hero-text">En iyi çekirdeklerden, modern sunumlarla</p>
+
+        <div class="hero-actions">
+          <a href="#news">
+            <BaseButton class="hero-button" size="lg"> Kampanyalar </BaseButton>
+          </a>
+
+          <a href="#locations">
+            <BaseButton class="hero-button" size="lg" color="tertiary"> Yol Tarifi </BaseButton>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features container">
+      <h1 class="features-title">Features</h1>
+
+      <!-- WRAPPER -->
+      <div class="features-wrapper">
+        <!-- FEATURES GRID -->
+        <div class="features-grid">
+          <div class="feature-item">
+            <img src="../../public/logo2.webp" class="feature-icon" />
+            <h3 class="feature-heading">Özenle Seçilmiş Çekirdekler</h3>
+            <p class="feature-text">Taze kavrulmuş, kaliteli kahve çekirdekleri.</p>
+          </div>
+
+          <div class="feature-item">
+            <img src="../../public/logo2.webp" class="feature-icon" />
+            <h3 class="feature-heading">Sıcak & Modern Atmosfer</h3>
+            <p class="feature-text">Rahat, keyifli ve samimi bir ortam.</p>
+          </div>
+
+          <div class="feature-item">
+            <img src="../../public/logo2.webp" class="feature-icon" />
+            <h3 class="feature-heading">Günlük Taze Ürünler</h3>
+            <p class="feature-text">Her gün taze hazırlanan tatlılar ve atıştırmalıklar.</p>
+          </div>
+
+          <div class="feature-item">
+            <img src="../../public/logo2.webp" class="feature-icon" />
+            <h3 class="feature-heading">Kolay Ulaşım</h3>
+            <p class="feature-text">Merkezi konum ve hızlı yol tarifi.</p>
+          </div>
+        </div>
+
+        <!-- MOBILE (2x2) DIVIDERS -->
+        <span class="features-divider-mobile-vertical"></span>
+        <span class="features-divider-mobile-horizontal"></span>
+
+        <!-- DESKTOP (1x4) DIVIDERS -->
+        <span class="features-divider-desktop d1"></span>
+        <span class="features-divider-desktop d2"></span>
+        <span class="features-divider-desktop d3"></span>
+      </div>
+    </section>
+
+    <!--News Section-->
+    <section id="news" class="pt-15">
+      <NewsSlider :items="newsData" />
+    </section>
+
+    <!--menu section-->
+    <section id="menu" class="menu">
+      <div class="container menu-inner">
+        <!-- Title -->
+        <h2 class="menu-title">Menümüzden Seçmeler</h2>
+
+        <p class="menu-description">En çok tercih edilen kahvelerimizi keşfedin.</p>
+
+        <!-- Menu Items -->
+        <div class="menu-grid">
+          <!-- Item -->
+          <div class="menu-item group" v-for="item in featuredItems" :key="item?.id">
+            <img :src="item?.image" :alt="item?.id" class="menu-image" />
+            <h3 class="menu-item-title">{{ item?.id }}</h3>
+            <span class="menu-item-text">{{ item?.description }}</span>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <RouterLink to="/menu">
+          <BaseButton class="menu-button" size="lg" color="secondary"> Tüm Menüyü Gör </BaseButton>
+        </RouterLink>
+      </div>
+    </section>
+
+    <!-- Promo Section -->
+    <section class="campaign">
+      <!-- BACKGROUND SPLIT -->
+      <div class="campaign-bg">
+        <div class="campaign-bg-left">
+          <img src="../assets/images/home3.webp" alt="" class="campaign-bg-image" />
+        </div>
+        <div class="campaign-bg-right"></div>
+      </div>
+
+      <!-- CONTENT -->
+      <div class="campaign-content container">
+        <!-- SOL -->
+        <div class="campaign-left">
+          <h2 class="campaign-left-title">Neden Bizi Seçmelisiniz?</h2>
+          <p class="campaign-left-text">
+            Kahveyi sadece içecek olarak değil, bir deneyim olarak sunuyoruz.
+          </p>
+          <a href="#locations">
+            <BaseButton class="campaign-button" size="lg" color="quaternary">
+              Yol Tarifi
+            </BaseButton>
+          </a>
+        </div>
+
+        <!-- SAĞ -->
+        <div class="campaign-right">
+          <h1 class="campaign-right-title">Sabah Kampanyası</h1>
+          <p class="campaign-right-text">10:00 – 12:00 arası Türk Kahvesi %20 İndirimli</p>
+
+          <BaseButton
+            class="campaign-button"
+            size="lg"
+            color="secondary"
+            @click="campaignOpen = true"
+          >
+            Kampanyayı Gör
+          </BaseButton>
+        </div>
+      </div>
+    </section>
+
+    <!-- Instagaram Section -->
+    <section id="instagram" class="instagram-section">
+      <!-- SOL DEKOR -->
+      <div class="instagram-left-decor">
+        <img src="../assets/images/coffeeVectorel.webp" alt="Coffee" class="coffee-img rotate-6" />
+        <img src="../assets/images/smoke.webp" alt="" class="coffee-smoke" />
+      </div>
+
+      <!-- SAĞ DEKOR -->
+      <img src="../assets/images/heart.webp" alt="" class="instagram-right-decor" />
+
+      <!-- ORTA İÇERİK -->
+      <h2 class="instagram-title">Bizi Instagram'dan takip et</h2>
+
+      <div class="instagram-frame-wrapper">
+        <iframe
+          src="//lightwidget.com/widgets/3a9cc5c99c2c58beac4fcb3b95840023.html"
+          allowtransparency="true"
+          class="instagram-frame"
+        ></iframe>
+      </div>
+    </section>
+
+    <!--our story section-->
+    <section id="ourstory" class="story" :class="expanded ? 'story-expanded' : 'story-collapsed'">
+      <!-- Background Image -->
+      <img src="../assets/images/home2.webp" alt="Coffee Story" class="story-bg" />
+
+      <!-- Content -->
+      <div class="story-overlay">
+        <div class="container">
+          <div class="story-content">
+            <h2 class="story-title">Bir Fincanla <br />Başlayan Hikâye</h2>
+
+            <!-- TEXT -->
+            <p
+              class="story-text"
+              :class="expanded ? 'story-text-expanded' : 'story-text-collapsed'"
+              :style="expanded ? {} : fadeMask"
+            >
+              Kahve bizim için sadece bir içecek değil. Güne başlarken verdiğimiz küçük bir mola,
+              dostlarla paylaşılan anlar ve hayatın temposunu biraz olsun yavaşlatmanın en keyifli
+              yolu.
+              <br /><br />
+              Her şey, iyi bir kahvenin insanları bir araya getirdiğine olan inancımızla başladı. En
+              iyi çekirdekleri özenle seçiyor, her fincanda aynı kaliteyi ve aynı tutkuyu sunmaya
+              çalışıyoruz.
+              <br /><br />
+              Demleme sürecinden sunuma kadar her detay, aceleye gelmeden, olması gerektiği gibi
+              ilerler. Çünkü bizim için kahve; hız değil denge, alışkanlık değil bir deneyimdir.
+            </p>
+
+            <!-- BUTTON -->
+            <BaseButton @click="expanded = !expanded" variant="outline" class="story-button">
+              {{ expanded ? 'Kapat' : 'Devamını Gör' }}
+            </BaseButton>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- reviews section-->
+    <section class="container py-20 pb-30">
+      <ReviewCarousel
+        title="Müşteri Yorumları"
+        score="4.8 / 5 ⭐ (120+ yorum)"
+        :reviews="reviewsData"
+      />
+    </section>
+
+    <!-- locations -->
+    <section id="locations" class="locations">
+      <div class="locations-grid">
+        <!-- MAP -->
+        <div class="locations-map">
+          <iframe
+            :src="selectedMapUrl"
+            class="locations-iframe"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="locations-content">
+          <p class="locations-title">Neredeyiz?</p>
+
+          <BaseDropdown
+            v-model="selectedLocationId"
+            :items="locationsData"
+            label-key="name"
+            value-key="id"
+            placeholder="Şube seç"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!--contact section-->
+    <section id="contact" class="container contact">
+      <h2 class="contact-title">Biz Buradayız</h2>
+
+      <p class="contact-description">
+        Bir kahve molası, bir soru ya da sadece merhaba demek için dilediğin yerden bize
+        ulaşabilirsin.
+      </p>
+
+      <div class="contact-grid">
+        <IconButton link="#">
+          <template #icon>
+            <img src="../components/icons/mail.webp" alt="Mail Icon" class="contact-icon" />
+          </template>
+          <template #title> Mail </template>
+          <template #description> info@rycoffee.com </template>
+        </IconButton>
+
+        <IconButton link="https://instagram.com">
+          <template #icon>
+            <img src="../components/icons/insta.webp" alt="Instagram Icon" class="contact-icon" />
+          </template>
+          <template #title> Instagram </template>
+          <template #description> @rycoffee </template>
+        </IconButton>
+
+        <IconButton link="https://whatsapp.com">
+          <template #icon>
+            <img src="../components/icons/whatsapp.webp" alt="WhatsApp Icon" class="contact-icon" />
+          </template>
+          <template #title> WhatsApp </template>
+          <template #description> +90 555 123 45 67 </template>
+        </IconButton>
+      </div>
+    </section>
+
+    <BaseModal v-model="campaignOpen" title="☀️ Sabah Kampanyası">
+      <p class="text-gray-700 leading-relaxed">
+        Güne keyifli bir başlangıç yapın.
+        <strong>09:00 – 12:00</strong> saatleri arasında
+        <strong>Türk Kahvesi %20 indirimli</strong>. <br /><br />
+        Taze çekilmiş kahve çekirdekleriyle hazırlanan Türk kahvemizi sabah saatlerine özel
+        avantajlı fiyatla deneyimleyin.
+      </p>
+
+      <template #footer>
+        <div class="flex justify-end gap-2">
+          <BaseButton
+            variant="outline"
+            class="px-4 py-2 rounded border"
+            @click="campaignOpen = false"
+            >Daha Sonra</BaseButton
+          >
+
+          <BaseButton class="px-4 py-2 rounded bg-black text-white" @click="campaignOpen = false">
+            Tamam ☕
+          </BaseButton>
+        </div>
+      </template>
+    </BaseModal>
   </main>
 </template>
+
+<style scoped>
+@reference "tailwindcss/theme.css";
+
+.hero {
+  @apply relative w-full h-150;
+}
+
+.hero-bg {
+  @apply absolute inset-0 w-full h-full object-cover object-[50%_40%];
+}
+
+.hero-content {
+  @apply relative z-10 h-full pt-30 text-left;
+}
+
+.hero-title {
+  @apply text-3xl md:text-6xl font-bold text-white;
+}
+
+.hero-text {
+  @apply mt-3 text-lg text-white/90 max-w-2xl;
+}
+
+.hero-actions {
+  @apply flex flex-col md:flex-row gap-4;
+}
+
+.hero-button {
+  @apply h-13 mt-5;
+}
+/* --------------------------------------*/
+.features {
+  @apply pt-15 pb-20;
+}
+
+.features-title {
+  @apply text-center text-3xl md:text-4xl mb-10;
+}
+
+.features-wrapper {
+  @apply relative;
+}
+
+.features-grid {
+  @apply grid grid-cols-2 md:grid-cols-4 text-center;
+}
+
+.feature-item {
+  @apply flex flex-col items-center gap-3;
+}
+
+.feature-icon {
+  @apply w-30 mx-auto;
+}
+
+.feature-heading {
+  @apply font-medium;
+}
+
+.feature-text {
+  @apply text-sm text-gray-600;
+}
+
+/* MOBILE DIVIDERS */
+.features-divider-mobile-vertical {
+  @apply absolute left-1/2 top-[5%] h-[90%] w-px bg-(--coffee-espresso)/50 md:hidden;
+}
+
+.features-divider-mobile-horizontal {
+  @apply absolute top-1/2 left-[5%] w-[90%] h-px bg-(--coffee-espresso)/50 md:hidden;
+}
+
+/* DESKTOP DIVIDERS */
+.features-divider-desktop {
+  @apply hidden md:block absolute bottom-0 h-[80%] w-px bg-(--coffee-espresso)/50;
+}
+
+.features-divider-desktop.d1 {
+  @apply left-1/4;
+}
+
+.features-divider-desktop.d2 {
+  @apply left-2/4;
+}
+
+.features-divider-desktop.d3 {
+  @apply left-3/4;
+}
+/*------------------------------ */
+.menu {
+  @apply bg-(--coffee-latte) py-20 scroll-mt-24;
+}
+
+.menu-inner {
+  @apply mx-auto text-center;
+}
+
+.menu-title {
+  @apply text-3xl md:text-4xl font-semibold mb-4;
+}
+
+.menu-description {
+  @apply max-w-xl mx-auto mb-12 text-(--coffee-espresso)/70;
+}
+
+.menu-grid {
+  @apply grid grid-cols-2 md:grid-cols-4 gap-8;
+}
+
+.menu-image {
+  @apply mx-auto mb-4 rounded-xl transition group-hover:scale-105;
+}
+
+.menu-item-title {
+  @apply text-lg font-semibold;
+}
+
+.menu-item-text {
+  @apply text-sm text-(--coffee-espresso)/60;
+}
+
+.menu-button {
+  @apply h-13 mt-5;
+}
+/*-------------------------------------------------------- */
+.campaign {
+  @apply relative w-full py-30 overflow-hidden;
+}
+
+/* BACKGROUND */
+.campaign-bg {
+  @apply absolute inset-0 grid grid-cols-1 md:grid-cols-2;
+}
+
+.campaign-bg-left {
+  @apply bg-(--coffee-espresso) flex justify-end;
+}
+
+.campaign-bg-right {
+  @apply bg-(--coffee-latte-soft);
+}
+
+.campaign-bg-image {
+  @apply w-[30%] h-full object-cover object-[80%] lg:object-[90%];
+}
+
+/* CONTENT */
+.campaign-content {
+  @apply relative grid grid-cols-1 md:grid-cols-2 gap-12;
+}
+
+/* LEFT */
+.campaign-left {
+  @apply max-w-80 text-white;
+}
+
+.campaign-left-title {
+  @apply text-3xl md:text-4xl;
+}
+
+.campaign-left-text {
+  @apply mt-4;
+}
+
+/* RIGHT */
+.campaign-right {
+  @apply text-center text-(--coffee-espresso);
+}
+
+.campaign-right-title {
+  @apply text-3xl md:text-4xl;
+}
+
+.campaign-right-text {
+  @apply mt-4;
+}
+
+/* BUTTON */
+.campaign-button {
+  @apply h-13 mt-5;
+}
+/*-------------------------------------------------------- */
+
+.instagram-section {
+  @apply relative py-20 text-center overflow-hidden;
+}
+
+/* Left */
+.instagram-left-decor {
+  @apply hidden md:block absolute left-0 opacity-80 pointer-events-none
+         w-60 lg:w-[400px];
+
+  top: 25%;
+  transform: translateY(-50%);
+}
+
+.coffee-img {
+  @apply w-full max-w-[320px] block;
+}
+
+.coffee-smoke {
+  @apply absolute pointer-events-none
+         w-1/2
+         blur-[2px]
+         mix-blend-screen;
+
+  bottom: 40%;
+  left: 40%;
+  transform: translateX(-50%);
+  transform-origin: center bottom;
+
+  animation: steamScale 7s ease-in-out infinite;
+}
+/* Right */
+.instagram-right-decor {
+  @apply hidden md:block absolute right-0 opacity-80 pointer-events-none
+         w-30 lg:w-50 -rotate-24;
+
+  bottom: 0;
+  transform: translateY(-50%);
+}
+
+.instagram-title {
+  @apply text-3xl md:text-4xl font-semibold mb-10;
+}
+
+.instagram-frame-wrapper {
+  @apply flex justify-center;
+}
+
+.instagram-frame {
+  @apply w-full max-w-md h-120 border-0;
+}
+
+@keyframes steamScale {
+  0% {
+    transform: translateX(-50%) scaleY(0.85);
+    opacity: 0.65;
+  }
+
+  50% {
+    transform: translateX(-50%) scaleY(1.15);
+    opacity: 0.85;
+  }
+
+  100% {
+    transform: translateX(-50%) scaleY(0.85);
+    opacity: 0.65;
+  }
+}
+
+/*-------------------------------------------------------- */
+.story {
+  @apply relative w-full overflow-hidden transition-all duration-700;
+}
+
+.story-collapsed {
+  @apply h-120;
+}
+
+.story-expanded {
+  @apply h-auto;
+}
+
+/* BACKGROUND */
+.story-bg {
+  @apply absolute inset-0 w-full h-full object-cover;
+}
+
+/* OVERLAY */
+.story-overlay {
+  @apply relative z-10 flex items-start py-15;
+}
+
+/* CONTENT */
+.story-content {
+  @apply max-w-xl text-white;
+}
+
+.story-title {
+  @apply text-3xl md:text-5xl font-semibold leading-tight text-(--coffee-caramel);
+}
+
+.story-text {
+  @apply mt-6 text-white/90 leading-relaxed transition-all duration-500;
+}
+
+.story-text-collapsed {
+  @apply max-h-40 overflow-hidden;
+}
+
+.story-text-expanded {
+  @apply max-h-none;
+}
+
+.story-button {
+  @apply mt-4;
+}
+/*-------------------------------------------------------- */
+
+.locations-grid {
+  @apply grid grid-cols-2 h-120;
+}
+
+/* MAP */
+.locations-map {
+  @apply bg-(--coffee-latte-soft);
+}
+
+.locations-iframe {
+  @apply w-full h-full grayscale;
+}
+
+/* CONTENT */
+.locations-content {
+  @apply bg-(--coffee-espresso) flex flex-col items-center justify-center gap-10 p-10 xl:pr-50;
+}
+
+.locations-title {
+  @apply text-4xl lg:text-8xl text-(--coffee-caramel) font-bold;
+}
+
+/*-------------------------------------------------------- */
+.contact {
+  @apply py-20 text-center;
+}
+
+.contact-title {
+  @apply text-3xl md:text-4xl text-(--coffee-espresso);
+}
+
+.contact-description {
+  @apply mt-4 text-sm text-black;
+}
+
+.contact-grid {
+  @apply grid grid-cols-1 md:grid-cols-3 gap-6 py-15;
+}
+
+.contact-icon {
+  @apply w-20 h-20;
+}
+</style>
