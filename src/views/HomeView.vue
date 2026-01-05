@@ -12,6 +12,10 @@ import { newsData } from '@/data/news'
 import { locationsData } from '@/data/locations'
 import { reviewsData } from '@/data/reviews'
 
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
 const expanded = ref(false)
 
 const fadeMask = {
@@ -49,16 +53,25 @@ const campaignOpen = ref(false)
 
       <!-- Content -->
       <div class="hero-content container">
-        <p class="hero-title">Kahveni Keşfet</p>
-        <p class="hero-text">En iyi çekirdeklerden, modern sunumlarla</p>
+        <p class="hero-title">
+          {{ t('home.hero.title') }}
+        </p>
+
+        <p class="hero-text">
+          {{ t('home.hero.subtitle') }}
+        </p>
 
         <div class="hero-actions">
           <a href="#news">
-            <BaseButton class="hero-button" size="lg"> Kampanyalar </BaseButton>
+            <BaseButton class="hero-button" size="lg">
+              {{ t('home.hero.campaignsButton') }}
+            </BaseButton>
           </a>
 
           <a href="#locations">
-            <BaseButton class="hero-button" size="lg" color="tertiary"> Yol Tarifi </BaseButton>
+            <BaseButton class="hero-button" size="lg" color="tertiary">
+              {{ t('home.hero.directionsButton') }}
+            </BaseButton>
           </a>
         </div>
       </div>
@@ -66,7 +79,9 @@ const campaignOpen = ref(false)
 
     <!-- Features Section -->
     <section class="features container">
-      <h1 class="features-title">Features</h1>
+      <h1 class="features-title">
+        {{ t('home.features.title') }}
+      </h1>
 
       <!-- WRAPPER -->
       <div class="features-wrapper">
@@ -74,34 +89,49 @@ const campaignOpen = ref(false)
         <div class="features-grid">
           <div class="feature-item">
             <img src="../../public/logo2.webp" class="feature-icon" />
-            <h3 class="feature-heading">Özenle Seçilmiş Çekirdekler</h3>
-            <p class="feature-text">Taze kavrulmuş, kaliteli kahve çekirdekleri.</p>
+            <h3 class="feature-heading">
+              {{ t('home.features.items.selectedBeans.title') }}
+            </h3>
+            <p class="feature-text">
+              {{ t('home.features.items.selectedBeans.text') }}
+            </p>
           </div>
 
           <div class="feature-item">
             <img src="../../public/logo2.webp" class="feature-icon" />
-            <h3 class="feature-heading">Sıcak & Modern Atmosfer</h3>
-            <p class="feature-text">Rahat, keyifli ve samimi bir ortam.</p>
+            <h3 class="feature-heading">
+              {{ t('home.features.items.atmosphere.title') }}
+            </h3>
+            <p class="feature-text">
+              {{ t('home.features.items.atmosphere.text') }}
+            </p>
           </div>
 
           <div class="feature-item">
             <img src="../../public/logo2.webp" class="feature-icon" />
-            <h3 class="feature-heading">Günlük Taze Ürünler</h3>
-            <p class="feature-text">Her gün taze hazırlanan tatlılar ve atıştırmalıklar.</p>
+            <h3 class="feature-heading">
+              {{ t('home.features.items.freshProducts.title') }}
+            </h3>
+            <p class="feature-text">
+              {{ t('home.features.items.freshProducts.text') }}
+            </p>
           </div>
 
           <div class="feature-item">
             <img src="../../public/logo2.webp" class="feature-icon" />
-            <h3 class="feature-heading">Kolay Ulaşım</h3>
-            <p class="feature-text">Merkezi konum ve hızlı yol tarifi.</p>
+            <h3 class="feature-heading">
+              {{ t('home.features.items.easyAccess.title') }}
+            </h3>
+            <p class="feature-text">
+              {{ t('home.features.items.easyAccess.text') }}
+            </p>
           </div>
         </div>
 
-        <!-- MOBILE (2x2) DIVIDERS -->
+        <!-- DIVIDERS -->
         <span class="features-divider-mobile-vertical"></span>
         <span class="features-divider-mobile-horizontal"></span>
 
-        <!-- DESKTOP (1x4) DIVIDERS -->
         <span class="features-divider-desktop d1"></span>
         <span class="features-divider-desktop d2"></span>
         <span class="features-divider-desktop d3"></span>
@@ -117,23 +147,32 @@ const campaignOpen = ref(false)
     <section id="menu" class="menu">
       <div class="container menu-inner">
         <!-- Title -->
-        <h2 class="menu-title">Menümüzden Seçmeler</h2>
+        <h2 class="menu-title">
+          {{ t('home.menu.title') }}
+        </h2>
 
-        <p class="menu-description">En çok tercih edilen kahvelerimizi keşfedin.</p>
+        <p class="menu-description">
+          {{ t('home.menu.description') }}
+        </p>
 
         <!-- Menu Items -->
         <div class="menu-grid">
-          <!-- Item -->
           <div class="menu-item group" v-for="item in featuredItems" :key="item?.id">
             <img :src="item?.image" :alt="item?.id" class="menu-image" />
-            <h3 class="menu-item-title">{{ item?.id }}</h3>
-            <span class="menu-item-text">{{ item?.description }}</span>
+            <h3 class="menu-item-title">
+              {{ item?.id }}
+            </h3>
+            <span class="menu-item-text">
+              {{ item?.description }}
+            </span>
           </div>
         </div>
 
         <!-- CTA -->
         <RouterLink to="/menu">
-          <BaseButton class="menu-button" size="lg" color="secondary"> Tüm Menüyü Gör </BaseButton>
+          <BaseButton class="menu-button" size="lg" color="secondary">
+            {{ t('home.menu.cta') }}
+          </BaseButton>
         </RouterLink>
       </div>
     </section>
@@ -152,21 +191,30 @@ const campaignOpen = ref(false)
       <div class="campaign-content container">
         <!-- SOL -->
         <div class="campaign-left">
-          <h2 class="campaign-left-title">Neden Bizi Seçmelisiniz?</h2>
+          <h2 class="campaign-left-title">
+            {{ t('home.campaign.left.title') }}
+          </h2>
+
           <p class="campaign-left-text">
-            Kahveyi sadece içecek olarak değil, bir deneyim olarak sunuyoruz.
+            {{ t('home.campaign.left.text') }}
           </p>
+
           <a href="#locations">
             <BaseButton class="campaign-button" size="lg" color="quaternary">
-              Yol Tarifi
+              {{ t('home.campaign.left.cta') }}
             </BaseButton>
           </a>
         </div>
 
         <!-- SAĞ -->
         <div class="campaign-right">
-          <h1 class="campaign-right-title">Sabah Kampanyası</h1>
-          <p class="campaign-right-text">10:00 – 12:00 arası Türk Kahvesi %20 İndirimli</p>
+          <h1 class="campaign-right-title">
+            {{ t('home.campaign.right.title') }}
+          </h1>
+
+          <p class="campaign-right-text">
+            {{ t('home.campaign.right.text') }}
+          </p>
 
           <BaseButton
             class="campaign-button"
@@ -174,7 +222,7 @@ const campaignOpen = ref(false)
             color="secondary"
             @click="campaignOpen = true"
           >
-            Kampanyayı Gör
+            {{ t('home.campaign.right.cta') }}
           </BaseButton>
         </div>
       </div>
@@ -192,7 +240,7 @@ const campaignOpen = ref(false)
       <img src="../assets/images/heart.webp" alt="" class="instagram-right-decor" />
 
       <!-- ORTA İÇERİK -->
-      <h2 class="instagram-title">Bizi Instagram'dan takip et</h2>
+      <h2 class="instagram-title">{{ t('home.instagram.title') }}</h2>
 
       <div class="instagram-frame-wrapper">
         <iframe
@@ -212,7 +260,7 @@ const campaignOpen = ref(false)
       <div class="story-overlay">
         <div class="container">
           <div class="story-content">
-            <h2 class="story-title">Bir Fincanla <br />Başlayan Hikâye</h2>
+            <h2 class="story-title" v-html="t('home.story.title')"></h2>
 
             <!-- TEXT -->
             <p
@@ -220,21 +268,16 @@ const campaignOpen = ref(false)
               :class="expanded ? 'story-text-expanded' : 'story-text-collapsed'"
               :style="expanded ? {} : fadeMask"
             >
-              Kahve bizim için sadece bir içecek değil. Güne başlarken verdiğimiz küçük bir mola,
-              dostlarla paylaşılan anlar ve hayatın temposunu biraz olsun yavaşlatmanın en keyifli
-              yolu.
+              {{ t('home.story.paragraphs.p1') }}
               <br /><br />
-              Her şey, iyi bir kahvenin insanları bir araya getirdiğine olan inancımızla başladı. En
-              iyi çekirdekleri özenle seçiyor, her fincanda aynı kaliteyi ve aynı tutkuyu sunmaya
-              çalışıyoruz.
+              {{ t('home.story.paragraphs.p2') }}
               <br /><br />
-              Demleme sürecinden sunuma kadar her detay, aceleye gelmeden, olması gerektiği gibi
-              ilerler. Çünkü bizim için kahve; hız değil denge, alışkanlık değil bir deneyimdir.
+              {{ t('home.story.paragraphs.p3') }}
             </p>
 
             <!-- BUTTON -->
             <BaseButton @click="expanded = !expanded" variant="outline" class="story-button">
-              {{ expanded ? 'Kapat' : 'Devamını Gör' }}
+              {{ expanded ? t('home.story.buttons.collapse') : t('home.story.buttons.expand') }}
             </BaseButton>
           </div>
         </div>
@@ -244,8 +287,8 @@ const campaignOpen = ref(false)
     <!-- reviews section-->
     <section class="container py-20 pb-30">
       <ReviewCarousel
-        title="Müşteri Yorumları"
-        score="4.8 / 5 ⭐ (120+ yorum)"
+        :title="t('home.reviews.title')"
+        :score="t('home.reviews.score')"
         :reviews="reviewsData"
       />
     </section>
@@ -265,26 +308,29 @@ const campaignOpen = ref(false)
 
         <!-- CONTENT -->
         <div class="locations-content">
-          <p class="locations-title">Neredeyiz?</p>
+          <p class="locations-title">
+            {{ t('home.locations.title') }}
+          </p>
 
           <BaseDropdown
             v-model="selectedLocationId"
             :items="locationsData"
             label-key="name"
             value-key="id"
-            placeholder="Şube seç"
+            :placeholder="t('home.locations.selectPlaceholder')"
           />
         </div>
       </div>
     </section>
 
-    <!--contact section-->
+    <!-- contact section -->
     <section id="contact" class="container contact">
-      <h2 class="contact-title">Biz Buradayız</h2>
+      <h2 class="contact-title">
+        {{ t('home.contact.title') }}
+      </h2>
 
       <p class="contact-description">
-        Bir kahve molası, bir soru ya da sadece merhaba demek için dilediğin yerden bize
-        ulaşabilirsin.
+        {{ t('home.contact.description') }}
       </p>
 
       <div class="contact-grid">
@@ -292,7 +338,9 @@ const campaignOpen = ref(false)
           <template #icon>
             <img src="../components/icons/mail.webp" alt="Mail Icon" class="contact-icon" />
           </template>
-          <template #title> Mail </template>
+          <template #title>
+            {{ t('home.contact.items.mail') }}
+          </template>
           <template #description> info@rycoffee.com </template>
         </IconButton>
 
@@ -300,7 +348,9 @@ const campaignOpen = ref(false)
           <template #icon>
             <img src="../components/icons/insta.webp" alt="Instagram Icon" class="contact-icon" />
           </template>
-          <template #title> Instagram </template>
+          <template #title>
+            {{ t('home.contact.items.instagram') }}
+          </template>
           <template #description> @rycoffee </template>
         </IconButton>
 
@@ -308,19 +358,22 @@ const campaignOpen = ref(false)
           <template #icon>
             <img src="../components/icons/whatsapp.webp" alt="WhatsApp Icon" class="contact-icon" />
           </template>
-          <template #title> WhatsApp </template>
+          <template #title>
+            {{ t('home.contact.items.whatsapp') }}
+          </template>
           <template #description> +90 555 123 45 67 </template>
         </IconButton>
       </div>
     </section>
 
-    <BaseModal v-model="campaignOpen" title="☀️ Sabah Kampanyası">
+    <BaseModal v-model="campaignOpen" :title="t('home.campaignModal.title')">
       <p class="text-gray-700 leading-relaxed">
-        Güne keyifli bir başlangıç yapın.
-        <strong>09:00 – 12:00</strong> saatleri arasında
-        <strong>Türk Kahvesi %20 indirimli</strong>. <br /><br />
-        Taze çekilmiş kahve çekirdekleriyle hazırlanan Türk kahvemizi sabah saatlerine özel
-        avantajlı fiyatla deneyimleyin.
+        {{ t('home.campaignModal.text.intro') }}
+        <strong>{{ t('home.campaignModal.text.time') }}</strong>
+        {{ ' ' }}
+        <strong>{{ t('home.campaignModal.text.discount') }}</strong
+        >. <br /><br />
+        {{ t('home.campaignModal.text.description') }}
       </p>
 
       <template #footer>
@@ -329,11 +382,12 @@ const campaignOpen = ref(false)
             variant="outline"
             class="px-4 py-2 rounded border"
             @click="campaignOpen = false"
-            >Daha Sonra</BaseButton
           >
+            {{ t('home.campaignModal.buttons.later') }}
+          </BaseButton>
 
           <BaseButton class="px-4 py-2 rounded bg-black text-white" @click="campaignOpen = false">
-            Tamam ☕
+            {{ t('home.campaignModal.buttons.confirm') }}
           </BaseButton>
         </div>
       </template>
@@ -525,7 +579,7 @@ const campaignOpen = ref(false)
 /*-------------------------------------------------------- */
 
 .instagram-section {
-  @apply relative py-20 text-center overflow-hidden;
+  @apply relative py-15  text-center overflow-hidden;
 }
 
 /* Left */
@@ -564,7 +618,7 @@ const campaignOpen = ref(false)
 }
 
 .instagram-title {
-  @apply text-3xl md:text-4xl font-semibold mb-10;
+  @apply text-3xl md:text-4xl font-semibold mb-15;
 }
 
 .instagram-frame-wrapper {
