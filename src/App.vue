@@ -97,7 +97,10 @@ const { locale } = useI18n()
 
 /* NAV LINKS */
 .nav-link {
-  @apply px-3 py-2 text-(--text-header) hover:bg-white/10;
+  @apply px-3 py-2 text-(--text-header);
+}
+.nav-link:hover {
+  @apply scale-120 duration-300 text-white;
 }
 
 /* FOOTER LEFT */
