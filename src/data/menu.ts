@@ -43,7 +43,7 @@ export const menuDataTR = [
         name: 'Cappuccino',
         description: 'Yoğun köpüklü klasik İtalyan kahvesi',
         price: 85,
-        image: '@/assets/coffeeImage/HotCoffee_06.webp',
+        image: './src/assets/coffeeImage/HotCoffee_06.webp',
         featured: true,
       },
       {
@@ -58,7 +58,7 @@ export const menuDataTR = [
         name: 'Americano',
         description: 'Espresso ve sıcak su',
         price: 75,
-        image: '/src/assets/coffeeImage/HotCoffee_08.webp',
+        image: '../src/assets/coffeeImage/HotCoffee_08.webp',
         featured: true,
       },
       {
