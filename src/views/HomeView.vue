@@ -501,6 +501,7 @@ const campaignOpen = ref(false)
         >. <br /><br />
         {{ t('home.campaignModal.text.description') }}
       </p>
+      <img src="/src/assets/coffeeImage/HotCoffee_01.webp" alt="" />
 
       <template #footer>
         <div class="flex justify-end gap-2">
