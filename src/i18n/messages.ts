@@ -1,3 +1,10 @@
+import { menuDataTR, menuDataEN } from '@/data/menu'
+
+export const menuByLocale = {
+  tr: menuDataTR,
+  en: menuDataEN,
+} as const
+
 export const messages = {
   tr: {
     common: {
@@ -126,6 +133,16 @@ export const messages = {
           later: 'Daha Sonra',
           confirm: 'Tamam ☕',
         },
+      },
+    },
+    menu: {
+      title: 'Menümüz',
+      subtitle: 'Özenle hazırlanmış kahveler ve tatlılar',
+
+      categories: {
+        hot: 'Sıcak Kahveler',
+        cold: 'Soğuk Kahveler',
+        dessert: 'Tatlılar',
       },
     },
   },
@@ -266,6 +283,16 @@ export const messages = {
           later: 'Later',
           confirm: 'Okay ☕',
         },
+      },
+    },
+    menu: {
+      title: 'Our Menu',
+      subtitle: 'Carefully crafted coffees and desserts',
+
+      categories: {
+        hot: 'Hot Coffee',
+        cold: 'Cold Coffee',
+        dessert: 'Desserts',
       },
     },
   },
