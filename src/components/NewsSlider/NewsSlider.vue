@@ -4,7 +4,7 @@
     <div class="slides" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
       <div v-for="(item, i) in items" :key="i" class="slide-item">
         <!-- IMAGE -->
-        <img :src="item.image" class="slide-image" />
+        <img :src="resolveImage(item.image)" class="slide-image" />
 
         <!-- OVERLAY -->
         <div v-if="item.title || item.text" class="slide-overlay" />
@@ -37,6 +37,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { resolveImage } from '@/utils/imageResolver'
 
 interface NewsItem {
   image: string

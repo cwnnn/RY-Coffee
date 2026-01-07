@@ -6,6 +6,7 @@ import IconButton from '@/components/IconButton/IconButton.vue'
 import BaseModal from '@/components/Modal/BaseModal.vue'
 import ReviewCarousel from '@/components/ReviewCarousel/ReviewCarousel.vue'
 import NewsSlider from '@/components/NewsSlider/NewsSlider.vue'
+import { resolveCoffeeImage } from '@/utils/imageResolver'
 
 import { newsData } from '@/data/news'
 import { locationsData } from '@/data/locations'
@@ -207,7 +208,7 @@ const campaignOpen = ref(false)
             :delay="400 + index * 200"
             :duration="500"
           >
-            <img :src="item?.image" :alt="item?.id" class="menu-image" />
+            <img :src="resolveCoffeeImage(item!.image)" :alt="item?.id" class="menu-image" />
             <h3 class="menu-item-title">{{ item?.id }}</h3>
             <span class="menu-item-text">{{ item?.description }}</span>
           </RouterLink>
@@ -501,7 +502,6 @@ const campaignOpen = ref(false)
         >. <br /><br />
         {{ t('home.campaignModal.text.description') }}
       </p>
-      <img src="/src/assets/coffeeImage/HotCoffee_01.webp" alt="" />
 
       <template #footer>
         <div class="flex justify-end gap-2">

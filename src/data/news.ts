@@ -6,17 +6,17 @@ as these areas may be partially cropped on different screen sizes.
 
 export const newsData = [
   {
-    image: './src/assets/images/home.webp',
+    image: 'home.webp',
     title: 'Kahve Gündemi',
     text: 'Dünyadan ve Türkiye’den kahve sektöründeki son gelişmeler',
   },
   {
-    image: './src/assets/images/home2.webp',
+    image: 'home2.webp',
     title: 'Haftanın Kampanyası',
     text: 'Seçili kahvelerde kaçırılmayacak özel indirimler',
   },
   {
-    image: './src/assets/images/home3.webp',
+    image: 'home3.webp',
     title: 'Yeni Lezzetler',
     text: 'Özel harmanlarımız ve sezonluk kahveler raflarda',
   },

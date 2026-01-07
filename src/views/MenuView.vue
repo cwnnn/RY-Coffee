@@ -36,7 +36,7 @@
             :class="{ 'highlight-item': route.hash === `#${item.id}` }"
           >
             <div class="menu-card-image-wrapper">
-              <img :src="item.image" :alt="item.name" class="menu-card-image" />
+              <img :src="resolveCoffeeImage(item.image)" :alt="item.name" class="menu-card-image" />
             </div>
 
             <div class="menu-card-content">
@@ -63,6 +63,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { menuByLocale } from '@/i18n/messages'
 import { useRoute } from 'vue-router'
+import { resolveCoffeeImage } from '@/utils/imageResolver'
 
 const route = useRoute()
 
