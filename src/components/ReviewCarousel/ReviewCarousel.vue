@@ -3,7 +3,7 @@
   <div class="reviews-header">
     <h2 class="reviews-title">{{ props.title }}</h2>
     <p class="reviews-subtitle">
-      Google’da <span class="reviews-score">{{ props.score }}</span>
+      <span class="reviews-score">{{ props.score }}</span>
     </p>
   </div>
 
