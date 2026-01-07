@@ -7,13 +7,14 @@ import BaseModal from '@/components/Modal/BaseModal.vue'
 import ReviewCarousel from '@/components/ReviewCarousel/ReviewCarousel.vue'
 import NewsSlider from '@/components/NewsSlider/NewsSlider.vue'
 
-import { menuData } from '@/data/menu'
 import { newsData } from '@/data/news'
 import { locationsData } from '@/data/locations'
 import { reviewsData } from '@/data/reviews'
 
 import { useI18n } from 'vue-i18n'
+import { menuByLocale } from '@/i18n/messages'
 
+const { locale } = useI18n()
 const { t } = useI18n()
 
 const expanded = ref(false)
@@ -31,10 +32,14 @@ const selectedMapUrl = computed(() => {
 
 const selectedLocationId = ref<number | null>(null)
 
+const menuData = computed(() => {
+  return menuByLocale[locale.value as 'tr' | 'en']
+})
+
 const renderOrder = [1, 2, 0, 3]
 
 const featuredItems = computed(() => {
-  const items = menuData
+  const items = menuData.value
     .flatMap((c) => c.items)
     .filter((i) => i.featured)
     .slice(0, 4)
@@ -49,27 +54,40 @@ const campaignOpen = ref(false)
     <!--hero section -->
     <section id="hero" class="hero">
       <!-- Background Image -->
-      <img src="/src/assets/images/home5.webp" alt="Hero" class="hero-bg" />
+      <img src="/src/assets/images/home5.webp" alt="Hero" class="hero-bg" v-motion-fade />
 
       <!-- Content -->
       <div class="hero-content container">
-        <p class="hero-title">
+        <p class="hero-title" v-motion-slide-top :delay="200" :duration="500">
           {{ t('home.hero.title') }}
         </p>
 
-        <p class="hero-text">
+        <p class="hero-text" v-motion-slide-top :delay="500" :duration="500">
           {{ t('home.hero.subtitle') }}
         </p>
 
         <div class="hero-actions">
           <a href="#news">
-            <BaseButton class="hero-button" size="lg">
+            <BaseButton
+              class="hero-button"
+              size="lg"
+              v-motion-slide-left
+              :delay="600"
+              :duration="500"
+            >
               {{ t('home.hero.campaignsButton') }}
             </BaseButton>
           </a>
 
           <a href="#locations">
-            <BaseButton class="hero-button" size="lg" color="tertiary">
+            <BaseButton
+              class="hero-button"
+              size="lg"
+              color="tertiary"
+              v-motion-slide-left
+              :delay="850"
+              :duration="500"
+            >
               {{ t('home.hero.directionsButton') }}
             </BaseButton>
           </a>
@@ -79,7 +97,7 @@ const campaignOpen = ref(false)
 
     <!-- Features Section -->
     <section class="features container">
-      <h1 class="features-title">
+      <h1 class="features-title" v-motion-slide-visible-once-top :delay="600" :duration="1200">
         {{ t('home.features.title') }}
       </h1>
 
@@ -87,7 +105,12 @@ const campaignOpen = ref(false)
       <div class="features-wrapper">
         <!-- FEATURES GRID -->
         <div class="features-grid">
-          <div class="feature-item">
+          <div
+            class="feature-item"
+            v-motion-slide-visible-once-bottom
+            :delay="400"
+            :duration="1200"
+          >
             <img src="../../public/logo2.webp" class="feature-icon" />
             <h3 class="feature-heading">
               {{ t('home.features.items.selectedBeans.title') }}
@@ -97,7 +120,12 @@ const campaignOpen = ref(false)
             </p>
           </div>
 
-          <div class="feature-item">
+          <div
+            class="feature-item"
+            v-motion-slide-visible-once-bottom
+            :delay="600"
+            :duration="1200"
+          >
             <img src="../../public/logo2.webp" class="feature-icon" />
             <h3 class="feature-heading">
               {{ t('home.features.items.atmosphere.title') }}
@@ -107,7 +135,12 @@ const campaignOpen = ref(false)
             </p>
           </div>
 
-          <div class="feature-item">
+          <div
+            class="feature-item"
+            v-motion-slide-visible-once-bottom
+            :delay="800"
+            :duration="1200"
+          >
             <img src="../../public/logo2.webp" class="feature-icon" />
             <h3 class="feature-heading">
               {{ t('home.features.items.freshProducts.title') }}
@@ -117,7 +150,12 @@ const campaignOpen = ref(false)
             </p>
           </div>
 
-          <div class="feature-item">
+          <div
+            class="feature-item"
+            v-motion-slide-visible-once-bottom
+            :delay="1000"
+            :duration="1200"
+          >
             <img src="../../public/logo2.webp" class="feature-icon" />
             <h3 class="feature-heading">
               {{ t('home.features.items.easyAccess.title') }}
@@ -140,37 +178,52 @@ const campaignOpen = ref(false)
 
     <!--News Section-->
     <section id="news" class="pt-15">
-      <NewsSlider :items="newsData" />
+      <NewsSlider :items="newsData" v-motion-fade-visible-once :duration="1000" />
     </section>
 
     <!--menu section-->
     <section id="menu" class="menu">
       <div class="container menu-inner">
         <!-- Title -->
-        <h2 class="menu-title">
+        <h2 class="menu-title" v-motion-slide-visible-once-top :delay="400" :duration="500">
           {{ t('home.menu.title') }}
         </h2>
 
-        <p class="menu-description">
+        <p class="menu-description" v-motion-slide-visible-once-top :delay="600" :duration="500">
           {{ t('home.menu.description') }}
         </p>
 
         <!-- Menu Items -->
         <div class="menu-grid">
-          <div class="menu-item group" v-for="item in featuredItems" :key="item?.id">
+          <RouterLink
+            v-for="(item, index) in featuredItems"
+            :key="item?.id"
+            :to="{
+              name: 'menu',
+              hash: `#${item!.id}`,
+            }"
+            class="menu-item group"
+            v-motion-pop-visible-once
+            :delay="400 + index * 200"
+            :duration="500"
+          >
             <img :src="item?.image" :alt="item?.id" class="menu-image" />
-            <h3 class="menu-item-title">
-              {{ item?.id }}
-            </h3>
-            <span class="menu-item-text">
-              {{ item?.description }}
-            </span>
-          </div>
+            <h3 class="menu-item-title">{{ item?.id }}</h3>
+            <span class="menu-item-text">{{ item?.description }}</span>
+          </RouterLink>
         </div>
 
         <!-- CTA -->
         <RouterLink to="/menu">
-          <BaseButton class="menu-button" size="lg" color="secondary">
+          <BaseButton
+            class="menu-button"
+            size="lg"
+            color="secondary"
+            v-motion
+            :initial="{ opacity: 0, y: 40 }"
+            :visible-once="{ opacity: 1, y: 0 }"
+            :delay="1000"
+          >
             {{ t('home.menu.cta') }}
           </BaseButton>
         </RouterLink>
@@ -178,19 +231,29 @@ const campaignOpen = ref(false)
     </section>
 
     <!-- Promo Section -->
-    <section class="campaign">
+    <section class="campaign" id="xxx">
       <!-- BACKGROUND SPLIT -->
       <div class="campaign-bg">
-        <div class="campaign-bg-left">
+        <div
+          class="campaign-bg-left"
+          v-motion-slide-visible-once-left
+          :delay="400"
+          :duration="1000"
+        >
           <img src="../assets/images/home3.webp" alt="" class="campaign-bg-image" />
         </div>
-        <div class="campaign-bg-right"></div>
+        <div
+          class="campaign-bg-right"
+          v-motion-slide-visible-once-right
+          :delay="400"
+          :duration="1000"
+        ></div>
       </div>
 
       <!-- CONTENT -->
       <div class="campaign-content container">
         <!-- SOL -->
-        <div class="campaign-left">
+        <div class="campaign-left" v-motion-slide-visible-once-left :delay="400" :duration="1000">
           <h2 class="campaign-left-title">
             {{ t('home.campaign.left.title') }}
           </h2>
@@ -207,7 +270,7 @@ const campaignOpen = ref(false)
         </div>
 
         <!-- SAĞ -->
-        <div class="campaign-right">
+        <div class="campaign-right" v-motion-slide-visible-once-right :delay="400" :duration="1000">
           <h1 class="campaign-right-title">
             {{ t('home.campaign.right.title') }}
           </h1>
@@ -231,20 +294,43 @@ const campaignOpen = ref(false)
     <!-- Instagaram Section -->
     <section id="instagram" class="instagram-section">
       <!-- SOL DEKOR -->
-      <div class="instagram-left-decor">
+      <div
+        class="instagram-left-decor"
+        v-motion
+        :initial="{ opacity: 0, x: -100, y: -120 }"
+        :visible="{ opacity: 1, x: -30, y: -120 }"
+        :delay="400"
+        :duration="1000"
+      >
         <img src="../assets/images/coffeeVectorel.webp" alt="Coffee" class="coffee-img rotate-6" />
         <img src="../assets/images/smoke.webp" alt="" class="coffee-smoke" />
       </div>
 
       <!-- SAĞ DEKOR -->
-      <img src="../assets/images/heart.webp" alt="" class="instagram-right-decor" />
+      <img
+        src="../assets/images/heart.webp"
+        alt=""
+        class="instagram-right-decor"
+        v-motion
+        :initial="{ opacity: 0, x: 100, y: -120 }"
+        :visible="{ opacity: 1, x: -40, y: -120 }"
+        :delay="400"
+        :duration="1000"
+      />
 
       <!-- ORTA İÇERİK -->
-      <h2 class="instagram-title">{{ t('home.instagram.title') }}</h2>
+      <h2 class="instagram-title" v-motion-slide-visible-once-top :delay="400" :duration="500">
+        {{ t('home.instagram.title') }}
+      </h2>
 
-      <div class="instagram-frame-wrapper">
+      <div
+        class="instagram-frame-wrapper"
+        v-motion-slide-visible-once-bottom
+        :delay="600"
+        :duration="500"
+      >
         <iframe
-          src="//lightwidget.com/widgets/3a9cc5c99c2c58beac4fcb3b95840023.html"
+          src="//lightwidget.com/widgets/2d97a4cba3935e768a93a2cf3bdd23b7.html"
           allowtransparency="true"
           class="instagram-frame"
         ></iframe>
@@ -252,7 +338,12 @@ const campaignOpen = ref(false)
     </section>
 
     <!--our story section-->
-    <section id="ourstory" class="story" :class="expanded ? 'story-expanded' : 'story-collapsed'">
+    <section
+      id="ourstory"
+      class="story"
+      :class="expanded ? 'story-expanded' : 'story-collapsed'"
+      v-motion-fade-visible-once
+    >
       <!-- Background Image -->
       <img src="../assets/images/home2.webp" alt="Coffee Story" class="story-bg" />
 
@@ -260,13 +351,20 @@ const campaignOpen = ref(false)
       <div class="story-overlay">
         <div class="container">
           <div class="story-content">
-            <h2 class="story-title" v-html="t('home.story.title')"></h2>
+            <h2
+              class="story-title"
+              v-html="t('home.story.title')"
+              v-motion-slide-visible-once-bottom
+              :delay="100"
+            ></h2>
 
             <!-- TEXT -->
             <p
               class="story-text"
               :class="expanded ? 'story-text-expanded' : 'story-text-collapsed'"
               :style="expanded ? {} : fadeMask"
+              v-motion-fade-visible-once
+              :delay="200"
             >
               {{ t('home.story.paragraphs.p1') }}
               <br /><br />
@@ -276,7 +374,13 @@ const campaignOpen = ref(false)
             </p>
 
             <!-- BUTTON -->
-            <BaseButton @click="expanded = !expanded" variant="outline" class="story-button">
+            <BaseButton
+              @click="expanded = !expanded"
+              variant="outline"
+              class="story-button"
+              v-motion-pop-visible-once
+              :delay="300"
+            >
               {{ expanded ? t('home.story.buttons.collapse') : t('home.story.buttons.expand') }}
             </BaseButton>
           </div>
@@ -285,7 +389,12 @@ const campaignOpen = ref(false)
     </section>
 
     <!-- reviews section-->
-    <section class="container py-20 pb-30">
+    <section
+      class="container py-20 pb-30"
+      v-motion-slide-visible-once-top
+      :delay="400"
+      :duration="800"
+    >
       <ReviewCarousel
         :title="t('home.reviews.title')"
         :score="t('home.reviews.score')"
@@ -296,19 +405,14 @@ const campaignOpen = ref(false)
     <!-- locations -->
     <section id="locations" class="locations">
       <div class="locations-grid">
-        <!-- MAP -->
-        <div class="locations-map">
-          <iframe
-            :src="selectedMapUrl"
-            class="locations-iframe"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-          ></iframe>
-        </div>
-
         <!-- CONTENT -->
-        <div class="locations-content">
-          <p class="locations-title">
+        <div
+          class="locations-content"
+          v-motion-slide-visible-once-left
+          :delay="400"
+          :duration="1000"
+        >
+          <p class="locations-title" v-motion-slide-visible-once-top :delay="600" :duration="1000">
             {{ t('home.locations.title') }}
           </p>
 
@@ -318,23 +422,35 @@ const campaignOpen = ref(false)
             label-key="name"
             value-key="id"
             :placeholder="t('home.locations.selectPlaceholder')"
+            v-motion-slide-visible-once-bottom
+            :delay="600"
+            :duration="1000"
           />
+        </div>
+        <!-- MAP -->
+        <div class="locations-map">
+          <iframe
+            :src="selectedMapUrl"
+            class="locations-iframe"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
         </div>
       </div>
     </section>
 
     <!-- contact section -->
     <section id="contact" class="container contact">
-      <h2 class="contact-title">
+      <h2 class="contact-title" v-motion-slide-visible-once-top :delay="400" :duration="500">
         {{ t('home.contact.title') }}
       </h2>
 
-      <p class="contact-description">
+      <p class="contact-description" v-motion-slide-visible-once-top :delay="600" :duration="500">
         {{ t('home.contact.description') }}
       </p>
 
       <div class="contact-grid">
-        <IconButton link="#">
+        <IconButton link="#" v-motion-pop-visible-once :delay="400" :duration="1000">
           <template #icon>
             <img src="../components/icons/mail.webp" alt="Mail Icon" class="contact-icon" />
           </template>
@@ -344,7 +460,12 @@ const campaignOpen = ref(false)
           <template #description> info@rycoffee.com </template>
         </IconButton>
 
-        <IconButton link="https://instagram.com">
+        <IconButton
+          link="https://instagram.com"
+          v-motion-pop-visible-once
+          :delay="600"
+          :duration="1000"
+        >
           <template #icon>
             <img src="../components/icons/insta.webp" alt="Instagram Icon" class="contact-icon" />
           </template>
@@ -354,7 +475,12 @@ const campaignOpen = ref(false)
           <template #description> @rycoffee </template>
         </IconButton>
 
-        <IconButton link="https://whatsapp.com">
+        <IconButton
+          link="https://whatsapp.com"
+          v-motion-pop-visible-once
+          :delay="800"
+          :duration="1000"
+        >
           <template #icon>
             <img src="../components/icons/whatsapp.webp" alt="WhatsApp Icon" class="contact-icon" />
           </template>
@@ -585,7 +711,7 @@ const campaignOpen = ref(false)
 /* Left */
 .instagram-left-decor {
   @apply hidden md:block absolute left-0 opacity-80 pointer-events-none
-         w-60 lg:w-[400px];
+         w-60 lg:w-[400px] lg:ml-10;
 
   top: 25%;
   transform: translateY(-50%);
@@ -596,14 +722,8 @@ const campaignOpen = ref(false)
 }
 
 .coffee-smoke {
-  @apply absolute pointer-events-none
-         w-1/2
-         blur-[2px]
-         mix-blend-screen;
+  @apply absolute pointer-events-none  blur-[2px] mix-blend-screen pl-10 w-4/5 bottom-[44%] left-[5%] lg:w-3/5;
 
-  bottom: 40%;
-  left: 40%;
-  transform: translateX(-50%);
   transform-origin: center bottom;
 
   animation: steamScale 7s ease-in-out infinite;
@@ -631,17 +751,17 @@ const campaignOpen = ref(false)
 
 @keyframes steamScale {
   0% {
-    transform: translateX(-50%) scaleY(0.85);
+    transform: scaleY(0.85);
     opacity: 0.65;
   }
 
   50% {
-    transform: translateX(-50%) scaleY(1.15);
+    transform: scaleY(1.15);
     opacity: 0.85;
   }
 
   100% {
-    transform: translateX(-50%) scaleY(0.85);
+    transform: scaleY(0.85);
     opacity: 0.65;
   }
 }
