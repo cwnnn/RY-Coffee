@@ -69,7 +69,7 @@ function select(item: TItem) {
       <button
         v-for="(item, i) in items"
         :key="i"
-        class="w-full px-4 py-2 text-left text-sm hover:bg-black/5"
+        class="w-full px-4 py-2 text-left text-sm text-white hover:bg-black/5"
         @click="select(item)"
       >
         {{ labelKey ? item[labelKey] : item }}
