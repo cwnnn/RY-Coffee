@@ -48,5 +48,5 @@
   @apply md:hidden bg-(--coffee-caramel);
 }
 .header-mobile-nav {
-  @apply flex flex-col gap-3 py-4 font-semibold text-white text-right;
+  @apply flex flex-col gap-3 py-4 font-semibold text-white items-end;
 }

@@ -817,12 +817,12 @@ const campaignOpen = ref(false)
 /*-------------------------------------------------------- */
 
 .locations-grid {
-  @apply grid grid-cols-2 h-120;
+  @apply grid md:grid-cols-2 h-120;
 }
 
 /* MAP */
 .locations-map {
-  @apply bg-(--coffee-latte-soft);
+  @apply bg-(--coffee-latte-soft) z-10;
 }
 
 .locations-iframe {
@@ -831,11 +831,11 @@ const campaignOpen = ref(false)
 
 /* CONTENT */
 .locations-content {
-  @apply bg-(--coffee-espresso) flex flex-col items-center justify-center gap-10 p-10 xl:pr-50;
+  @apply bg-(--coffee-espresso) flex flex-col items-center justify-center gap-10 p-10 xl:pr-50 z-20;
 }
 
 .locations-title {
-  @apply text-4xl lg:text-8xl text-(--coffee-caramel) font-bold;
+  @apply text-5xl lg:text-8xl text-(--coffee-caramel) font-bold;
 }
 
 /*-------------------------------------------------------- */

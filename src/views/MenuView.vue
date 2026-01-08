@@ -7,7 +7,7 @@
     </header>
 
     <!-- STICKY MENU -->
-    <div class="menu-sticky-wrapper container">
+    <div class="menu-sticky-wrapper">
       <div class="menu-sticky">
         <a href="#hot" class="menu-link">{{ $t('menu.categories.hot') }}</a>
         <a href="#cold" class="menu-link">{{ $t('menu.categories.cold') }}</a>
@@ -108,9 +108,9 @@ const displayPrice = (price: number) => {
 }
 
 .menu-sticky {
-  @apply flex justify-center gap-10 py-3
+  @apply flex justify-between py-3 px-6 md:px-10
          max-w-120 mx-auto
-         bg-(--coffee-espresso)/70 text-white
+         bg-(--coffee-espresso)/70 text-white text-xs md:text-base
          border rounded-full;
 }
 
