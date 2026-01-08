@@ -13,7 +13,7 @@ const { locale } = useI18n()
 <template>
   <AppHeader>
     <template #logo>
-      <RouterLink to="/#hero" class="app-logo">
+      <RouterLink to="/#hero" class="app-logo" v-motion-slide-top :duration="500">
         <img src="/logo.png" alt="RY Coffee Logo" class="app-logo__img" />
         <h1 class="app-logo__text">
           {{ t('common.brand.name') }}
@@ -21,26 +21,59 @@ const { locale } = useI18n()
       </RouterLink>
     </template>
 
-    <template #nav>
-      <RouterLink to="/#menu" class="nav-link font-Header">
+    <template #nav="{ close }">
+      <RouterLink
+        @click="close"
+        to="/#menu"
+        class="nav-link font-Header"
+        v-motion-slide-top
+        :delay="200"
+        :duration="500"
+      >
         {{ t('header.menu') }}
       </RouterLink>
 
-      <RouterLink to="/#ourstory" class="nav-link font-Header">
+      <RouterLink
+        @click="close"
+        to="/#ourstory"
+        class="nav-link font-Header"
+        v-motion-slide-top
+        :delay="400"
+        :duration="500"
+      >
         {{ t('header.ourStory') }}
       </RouterLink>
 
-      <RouterLink to="/#locations" class="nav-link font-Header">
+      <RouterLink
+        @click="close"
+        to="/#locations"
+        class="nav-link font-Header"
+        v-motion-slide-top
+        :delay="600"
+        :duration="500"
+      >
         {{ t('header.locations') }}
       </RouterLink>
 
-      <RouterLink to="/#contact" class="nav-link font-Header">
+      <RouterLink
+        @click="close"
+        to="/#contact"
+        class="nav-link font-Header"
+        v-motion-slide-top
+        :delay="800"
+        :duration="500"
+      >
         {{ t('header.contact') }}
       </RouterLink>
-    </template>
 
-    <template #actions>
-      <LanguageToggle v-model="locale" option1="tr" option2="en" />
+      <LanguageToggle
+        v-model="locale"
+        option1="tr"
+        option2="en"
+        v-motion-slide-top
+        :delay="1000"
+        :duration="500"
+      />
     </template>
   </AppHeader>
 

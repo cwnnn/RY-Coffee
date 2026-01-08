@@ -28,7 +28,7 @@
     <!-- MOBILE MENU -->
     <div v-if="mobileOpen" class="header-mobile">
       <nav class="header-mobile-nav container">
-        <slot name="nav" />
+        <slot name="nav" :close="closeMobile" />
       </nav>
     </div>
   </header>
@@ -38,5 +38,8 @@
 import { ref } from 'vue'
 
 const mobileOpen = ref(false)
+const closeMobile = () => {
+  mobileOpen.value = false
+}
 </script>
 <style src="./AppHeader.css"></style>
