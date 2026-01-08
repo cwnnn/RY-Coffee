@@ -527,7 +527,7 @@ const campaignOpen = ref(false)
 @reference "tailwindcss/theme.css";
 
 .hero {
-  @apply relative w-full h-150;
+  @apply relative w-full md:h-150;
 }
 
 .hero-bg {
@@ -535,7 +535,7 @@ const campaignOpen = ref(false)
 }
 
 .hero-content {
-  @apply relative z-10 h-full pt-30 text-left;
+  @apply relative z-10 h-full py-15 md:pt-30 text-left;
 }
 
 .hero-title {
