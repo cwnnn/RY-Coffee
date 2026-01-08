@@ -8,12 +8,11 @@ import ReviewCarousel from '@/components/ReviewCarousel/ReviewCarousel.vue'
 import NewsSlider from '@/components/NewsSlider/NewsSlider.vue'
 import { resolveCoffeeImage } from '@/utils/imageResolver'
 
-import { newsData } from '@/data/news'
 import { locationsData } from '@/data/locations'
 import { reviewsData } from '@/data/reviews'
 
 import { useI18n } from 'vue-i18n'
-import { menuByLocale } from '@/i18n/messages'
+import { menuByLocale, newsByLocale } from '@/i18n/messages'
 
 const { locale } = useI18n()
 const { t } = useI18n()
@@ -36,7 +35,9 @@ const selectedLocationId = ref<number | null>(null)
 const menuData = computed(() => {
   return menuByLocale[locale.value as 'tr' | 'en']
 })
-
+const newsData = computed(() => {
+  return newsByLocale[locale.value as 'tr' | 'en']
+})
 const renderOrder = [1, 2, 0, 3]
 
 const featuredItems = computed(() => {

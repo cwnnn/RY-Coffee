@@ -1,8 +1,14 @@
 import { menuDataTR, menuDataEN } from '@/data/menu'
+import { newsDataTR, newsDataEN } from '@/data/news'
 
 export const menuByLocale = {
   tr: menuDataTR,
   en: menuDataEN,
+} as const
+
+export const newsByLocale = {
+  tr: newsDataTR,
+  en: newsDataEN,
 } as const
 
 export const messages = {
